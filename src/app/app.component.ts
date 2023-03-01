@@ -1,3 +1,4 @@
+import { CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component } from '@angular/core';
 import { Task } from './model/task';
 
@@ -19,4 +20,23 @@ export class AppComponent {
       description: 'Using Firebase and Angular create a Kanban app!'
     }
   ];
+  inProgress: Task[] = [];
+  done: Task[] = [];
+
+  editTask(list: string, task: Task): void {}
+
+  drop(event: CdkDragDrop<Task[]>): void {
+    if (event.previousContainer === event.container) {
+      return;
+    }
+    if (!event.container.data || !event.previousContainer.data) {
+      return;
+    }
+    transferArrayItem(
+      event.previousContainer.data,
+      event.container.data,
+      event.previousIndex,
+      event.currentIndex
+    );
+  }
 }
