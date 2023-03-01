@@ -1,22 +1,27 @@
-<mat-form-field>
-  <mat-label>Title</mat-label>
-  <input matInput cdkFocusInitial [(ngModel)]="data.task.title" />
-</mat-form-field>
+<div class="form">
 
-<mat-form-field>
-  <mat-label>Description</mat-label>
-  <textarea matInput [(ngModel)]="data.task.description"></textarea>
-</mat-form-field>
+  <h2>Edit Card</h2>
 
-<div mat-dialog-actions>
-  <button mat-button [mat-dialog-close]="{ task: data.task }">OK</button>
-  <button mat-button (click)="cancel()">Cancel</button>
-  <button
-    *ngIf="data.enableDelete"
-    mat-fab
-    color="primary"
-    aria-label="Delete"
-    [mat-dialog-close]="{ task: data.task, delete: true }">
-    <mat-icon>delete</mat-icon>
-  </button>
+  <mat-form-field class="full-width">
+    <mat-label>Title</mat-label>
+    <input matInput cdkFocusInitial [(ngModel)]="data.task.title" />
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <mat-label>Description</mat-label>
+    <textarea matInput [(ngModel)]="data.task.description"></textarea>
+  </mat-form-field>
+
+  <div mat-dialog-actions class="content-actions">
+    <button mat-raised-button color="primary" [mat-dialog-close]="{ task: data.task }">OK</button>
+    <button mat-raised-button color="accent" (click)="cancel()">Cancel</button>
+    <button
+      *ngIf="data.enableDelete"
+      mat-mini-fab
+      color="warn"
+      aria-label="Delete"
+      [mat-dialog-close]="{ task: data.task, delete: true }">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
 </div>

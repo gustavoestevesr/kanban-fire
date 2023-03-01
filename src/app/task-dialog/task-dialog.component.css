@@ -1,0 +1,12 @@
+.content-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form {
+  padding: 1em;
+}
+
+.full-width {
+  width: 100%;
+}
