@@ -1,0 +1,10 @@
+.item {
+  margin: 5px;
+  padding: 1vw;
+  background-color: lightgrey;
+  cursor: pointer;
+}
+
+:host {
+  display: block;
+}
