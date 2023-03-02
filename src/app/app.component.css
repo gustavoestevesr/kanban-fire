@@ -1,9 +1,8 @@
-mat-toolbar {
+mat-toolbar {  
+  display: flex;
+  justify-content: space-between;
+  alig-itens: center;
   margin-bottom: 20px;
-}
-
-mat-toolbar > span {
-  margin-left: 10px;
 }
 
 .content-wrapper {
