@@ -16,6 +16,7 @@ export class AppComponent {
   title = 'kanban-fire';
 
   constructor(private dialog: MatDialog) {}
+  private readonly widthMatDialog: string = '400px';
 
   todo: Task[] = [
     {
@@ -32,7 +33,7 @@ export class AppComponent {
 
   editTask(list: 'done' | 'todo' | 'inProgress', task: Task): void {
     const dialogRef = this.dialog.open(TaskDialogComponent, {
-      width: '400px',
+      width: this.widthMatDialog,
       data: {
         task,
         enableDelete: true,
@@ -69,7 +70,7 @@ export class AppComponent {
 
   newTask(): void {
     const dialogRef = this.dialog.open(TaskDialogComponent, {
-      width: '270px',
+      width: this.widthMatDialog,
       data: {
         task: {},
       },
