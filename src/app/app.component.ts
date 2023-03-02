@@ -21,11 +21,13 @@ export class AppComponent {
   todo: Task[] = [
     {
       title: 'Buy milk',
-      description: 'Go to the store and buy milk'
+      description: 'Go to the store and buy milk',
+      color: 'lightblue'
     },
     {
       title: 'Create a Kanban app',
-      description: 'Using Firebase and Angular create a Kanban app!'
+      description: 'Using Firebase and Angular create a Kanban app!',
+      color: 'lightgreen'
     }
   ];
   inProgress: Task[] = [];
@@ -48,7 +50,7 @@ export class AppComponent {
       if (result.delete) {
         dataList.splice(taskIndex, 1);
       } else {
-        if (result.task.title.length != 0 && result.task.description.length != 0) {
+        if (result.task.title.length != 0 && result.task.description.length != 0 && result.task.color.length != 0) {
           dataList[taskIndex] = task;
         } else {
           dataList.splice(taskIndex, 1);
@@ -85,7 +87,7 @@ export class AppComponent {
         if (!result) {
           return;
         }
-        if (result.task.title.length != 0 && result.task.description.length != 0) {
+        if (result.task.title.length != 0 && result.task.description.length != 0 && result.task.color.length != 0) {
           this.todo.push(result.task);
         }
       });

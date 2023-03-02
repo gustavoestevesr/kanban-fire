@@ -1,6 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Task } from '../model/task';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TaskDialogData } from '../model/task-dialog-data';
 
 @Component({
@@ -9,6 +8,8 @@ import { TaskDialogData } from '../model/task-dialog-data';
   styleUrls: ['./task-dialog.component.css']
 })
 export class TaskDialogComponent {
+
+  colors: string[] = ['lightcoral','lightgreen','lightblue','lightyellow','lightpink'];
 
   constructor(
     public dialogRef: MatDialogRef<TaskDialogComponent>,

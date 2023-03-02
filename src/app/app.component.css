@@ -1,11 +1,11 @@
-mat-toolbar {  
+mat-toolbar {
   display: flex;
   justify-content: space-between;
-  alig-itens: center;
   margin-bottom: 20px;
 }
 
 .content-wrapper {
+  width: 95%;
   max-width: 1400px;
   margin: auto;
 }
@@ -18,6 +18,9 @@ mat-toolbar {
 .container {
   width: 400px;
   margin: 0 25px 25px 0;
+  border: 1px solid lightgray;
+  padding: 1em;
+  border-radius: 4px;
 }
 
 .list {
@@ -31,10 +34,10 @@ app-new-task {
 }
 
 .empty-label {
-  font-size: 2em;
-  padding-top: 10px;
+  font-size: 1.5em;
+  margin: 25px;
   text-align: center;
-  opacity: 0.2;
+  opacity: 0.25;
 }
 
 .cdk-drag-animating {
