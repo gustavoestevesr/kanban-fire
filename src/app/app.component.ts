@@ -48,7 +48,11 @@ export class AppComponent {
       if (result.delete) {
         dataList.splice(taskIndex, 1);
       } else {
-        dataList[taskIndex] = task;
+        if (result.task.title.length != 0 && result.task.description.length != 0) {
+          dataList[taskIndex] = task;
+        } else {
+          dataList.splice(taskIndex, 1);
+        }
       }
     });
   }
@@ -81,7 +85,9 @@ export class AppComponent {
         if (!result) {
           return;
         }
-        this.todo.push(result.task);
+        if (result.task.title.length != 0 && result.task.description.length != 0) {
+          this.todo.push(result.task);
+        }
       });
   }
 }
