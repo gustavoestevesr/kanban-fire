@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "kanbanfire-e9876": {
+      "hosting": {
+        "kanban-fire": [
+          "kanbanfire-e9876"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "kanbanfire-e9876"
+  }
+}
