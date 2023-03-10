@@ -1,13 +1,11 @@
 export const environment = {
   firebase: {
-    projectId: 'kanbanfire-cf772',
-    appId: '1:556985327472:web:16cc02f0967b001e0939b5',
-    storageBucket: 'kanbanfire-cf772.appspot.com',
-    locationId: 'us-central',
-    apiKey: 'AIzaSyDPjzTupmZ5fBlV2goy4CN4cOmMSB4u2hA',
-    authDomain: 'kanbanfire-cf772.firebaseapp.com',
-    messagingSenderId: '556985327472',
-    measurementId: 'G-M2WN4XW6F8',
+    apiKey: "AIzaSyDWWhGhpD5yhksHijc3CfBB7p1e8F0HOjk",
+    authDomain: "kanban-firebase-221a1.firebaseapp.com",
+    projectId: "kanban-firebase-221a1",
+    storageBucket: "kanban-firebase-221a1.appspot.com",
+    messagingSenderId: "740219873035",
+    appId: "1:740219873035:web:4f1060f909c0604d75e40e"
   },
   production: false
 };

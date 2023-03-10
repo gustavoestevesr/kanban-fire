@@ -6,9 +6,16 @@
           "kanbanfire-e9876"
         ]
       }
+    },
+    "kanban-firebase-221a1": {
+      "hosting": {
+        "kanban-fire": [
+          "kanban-firebase-221a1"
+        ]
+      }
     }
   },
   "projects": {
-    "default": "kanbanfire-e9876"
+    "default": "kanban-firebase-221a1"
   }
 }

@@ -1,39 +1,70 @@
-import { CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
-import { Component } from '@angular/core';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-
+import {
+  Firestore,
+  collectionData,
+  collection,
+  deleteDoc,
+  doc,
+  updateDoc,
+} from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 import { Task } from './model/task';
 import { TaskDialogResult } from './model/task-dialog-result';
 import { TaskDialogComponent } from './task-dialog/task-dialog.component';
-
+import { addDoc, CollectionReference, DocumentData } from 'firebase/firestore';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'kanban-fire';
 
-  constructor(private dialog: MatDialog) {}
+  private toDoCollection: CollectionReference<DocumentData>;
+  private inProgressCollection: CollectionReference<DocumentData>;
+  private doneCollection: CollectionReference<DocumentData>;
+
+  toDo$?: Observable<Task[]>;
+  inProgress$?: Observable<Task[]>;
+  done$?: Observable<Task[]>;
+
+  ngOnInit(): void {
+    this.toDo$ = this.getAllToDo();
+    this.inProgress$ = this.getAllInProgress();
+    this.done$ = this.getAllDone();
+  }
+
+  constructor(private dialog: MatDialog, private firestore: Firestore) {
+    this.toDoCollection = collection(this.firestore, 'toDo');
+    this.inProgressCollection = collection(this.firestore, 'inProgress');
+    this.doneCollection = collection(this.firestore, 'done');
+  }
+
   private readonly widthMatDialog: string = '400px';
 
-  todo: Task[] = [
-    {
-      title: 'Buy milk',
-      description: 'Go to the store and buy milk',
-      color: 'lightblue'
-    },
-    {
-      title: 'Create a Kanban app',
-      description: 'Using Firebase and Angular create a Kanban app!',
-      color: 'lightgreen'
-    }
-  ];
-  inProgress: Task[] = [];
-  done: Task[] = [];
+  getAllToDo() {
+    return collectionData(this.toDoCollection, {
+      idField: 'id',
+    }) as Observable<Task[]>;
+  }
 
-  editTask(list: 'done' | 'todo' | 'inProgress', task: Task): void {
+  getAllInProgress() {
+    return collectionData(this.inProgressCollection, {
+      idField: 'id',
+    }) as Observable<Task[]>;
+  }
+
+  getAllDone() {
+    return collectionData(this.doneCollection, {
+      idField: 'id',
+    }) as Observable<Task[]>;
+  }
+
+  editTask(list: 'done' | 'toDo' | 'inProgress', task: Task) {
     const dialogRef = this.dialog.open(TaskDialogComponent, {
       width: this.widthMatDialog,
       data: {
@@ -41,40 +72,38 @@ export class AppComponent {
         enableDelete: true,
       },
     });
-    dialogRef.afterClosed().subscribe((result: TaskDialogResult|undefined) => {
-      if (!result) {
-        return;
-      }
-      const dataList = this[list];
-      const taskIndex = dataList.indexOf(task);
-      if (result.delete) {
-        dataList.splice(taskIndex, 1);
-      } else {
-        if (result.task.title.length != 0 && result.task.description.length != 0 && result.task.color.length != 0) {
-          dataList[taskIndex] = task;
-        } else {
-          dataList.splice(taskIndex, 1);
+    dialogRef
+      .afterClosed()
+      .subscribe((result: TaskDialogResult | undefined) => {
+        if (!result) {
+          return;
         }
-      }
-    });
+        if (result.delete) {
+          deleteDoc(doc(this.firestore, `${list}/${task.id}`));
+        } else {
+          updateDoc(doc(this.firestore, `${list}/${task.id}`), { ...task })
+        }
+      });
   }
 
-  drop(event: CdkDragDrop<Task[]>): void {
+  drop(event: CdkDragDrop<any>): void {
     if (event.previousContainer === event.container) {
-      return;
+      return
     }
-    if (!event.container.data || !event.previousContainer.data) {
-      return;
+    const item = event.previousContainer.data[event.previousIndex];
+
+    deleteDoc(doc(this.firestore, `${event.previousContainer.id}/${item.id}`));
+    if (event.container.id == 'toDo') {
+      addDoc(this.toDoCollection, item);
+    } else if (event.container.id == 'done') {
+      addDoc(this.doneCollection, item);
+    } else if (event.container.id == 'inProgress') {
+      addDoc(this.inProgressCollection, item);
     }
-    transferArrayItem(
-      event.previousContainer.data,
-      event.container.data,
-      event.previousIndex,
-      event.currentIndex
-    );
+
   }
 
-  newTask(): void {
+  newTask() {
     const dialogRef = this.dialog.open(TaskDialogComponent, {
       width: this.widthMatDialog,
       data: {
@@ -83,13 +112,11 @@ export class AppComponent {
     });
     dialogRef
       .afterClosed()
-      .subscribe((result: TaskDialogResult|undefined) => {
+      .subscribe((result: TaskDialogResult | undefined) => {
         if (!result) {
           return;
         }
-        if (result.task.title.length != 0 && result.task.description.length != 0 && result.task.color.length != 0) {
-          this.todo.push(result.task);
-        }
+        addDoc(this.toDoCollection, result.task);
       });
   }
 }
