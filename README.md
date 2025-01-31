@@ -12,9 +12,9 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 - Angular SDK
 - AngularFire
 
-### Preview
+### 📽️ Preview do KanbanFire
 
-https://github.com/gustavoestevesr/kanban-fire/blob/master/Tab-KanbanFire.mp4
+[▶ Watch the video](https://www.vidline.com/iframePlayer?id=V0NBH5N1KA&key=c819def8b7159f4a7dfdf373b4d6d214&in-modal=1)
 
 ## Development server
 
