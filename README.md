@@ -1,6 +1,20 @@
 # KanbanFire
 
+This project simulates a Kanban Board using Angular CLI and Firebase.
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.1.5.
+
+### Stack used
+
+- Angular CLI
+- Firebase
+- Angular Material
+- Angular SDK
+- AngularFire
+
+### Preview
+
+https://github.com/gustavoestevesr/kanban-fire/blob/master/Tab-KanbanFire.mp4
 
 ## Development server
 
